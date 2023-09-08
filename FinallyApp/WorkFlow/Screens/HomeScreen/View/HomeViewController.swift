@@ -17,11 +17,6 @@ class HomeViewController: UIViewController {
     }()
     private lazy var imageCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(
-            width: UIScreen.main.bounds.width / 2 - 30, height: 200 / UIScreen.main.bounds.height * 812)
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        layout.minimumLineSpacing = 15
-        layout.minimumInteritemSpacing = 10
         layout.scrollDirection = .vertical
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.delegate = self
@@ -36,8 +31,7 @@ class HomeViewController: UIViewController {
         view.addTarget(self, action: #selector(refreshAction), for: .valueChanged)
         return view
     }()
-    
-    var viewModel: HomeViewModelProtocol? {
+    var viewModel: HomeViewModelProtocol! {
         didSet {
             viewModel?.fetchData(completion: { [weak self] in
                 DispatchQueue.main.async {
@@ -53,10 +47,18 @@ class HomeViewController: UIViewController {
 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        imageCollectionView.reloadData()
+    }
+    
+//    convenience init(viewModel: HomeViewModelProtocol) {
+//        self.init(nibName:nil, bundle:nil)
+//        self.viewModel = viewModel
+//    }
+    
     private func setup() {
         viewModel = HomeViewModel()
-        setupView()
-        setupSubview()
+        setupAppearance()
         navSetup()
     }
     
@@ -65,18 +67,15 @@ class HomeViewController: UIViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
     }
     
-    private func setupView() {
+    private func setupAppearance() {
         title = "HOME"
         view.backgroundColor = .white
-    }
-    
-    private func setupSubview() {
+        
         view.addSubview(imageCollectionView)
         imageCollectionView.frame = view.bounds
     }
     
     @objc func refreshAction(_ sender: UIRefreshControl) {
-        print("refresh")
         viewModel?.fetchData {
             DispatchQueue.main.async { [weak self] in
                 self?.imageCollectionView.reloadData()
@@ -89,11 +88,11 @@ class HomeViewController: UIViewController {
 //MARK: - UISearchResultsUpdating
 extension HomeViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-//        viewModel?.search(query: searchController.searchBar.text, completion: {
-//            DispatchQueue.main.async {[weak self] in
-//                self?.imageCollectionView.reloadData()
-//            }
-//        })
+        viewModel?.search(query: searchController.searchBar.text, completion: {
+            DispatchQueue.main.async {[weak self] in
+                self?.imageCollectionView.reloadData()
+            }
+        })
     }
 }
 
@@ -111,8 +110,8 @@ extension HomeViewController: UICollectionViewDataSource {
         ) as? ImageCollectionViewCell else {
             return UICollectionViewCell()
         }
-        guard let model = viewModel?.getData(at: indexPath) else {return UICollectionViewCell()}
-        cell.setupData(model: model.urls["thumb"]!)
+        let viewModel = viewModel.getViewModelForCell(at: indexPath)
+        cell.viewModel = viewModel
         return cell
     }
 }
@@ -120,9 +119,39 @@ extension HomeViewController: UICollectionViewDataSource {
 //MARK: - UICollectionViewDelegate
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = DetailViewController()
-        let viewModel = viewModel?.getViewModelForSelectedRow(at: indexPath)
-        vc.viewModel = viewModel
-        navigationController?.pushViewController(vc, animated: true)
+        viewModel.getViewModelForSelectedRow(at: indexPath) {[weak self] viewModel in
+            DispatchQueue.main.async {
+                let vc = DetailViewController()
+                vc.viewModel = viewModel
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+    }
+}
+
+//MARK: - UICollectionViewDelegateFlowLayout
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        CGSize(width: view.bounds.width / 2 - 30, height: 200 / view.bounds.height * 852)
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int
+    ) -> UIEdgeInsets {
+        UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int
+    ) -> CGFloat {
+        15
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int
+    ) -> CGFloat {
+        10
     }
 }

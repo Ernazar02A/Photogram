@@ -17,10 +17,13 @@ enum Constants {
     enum APIURL {
         static let baseUrl = "https://api.unsplash.com"
         static func randomUrl(count: Int) -> URL {
-            return URL(string: "\(baseUrl)/photos/random/?count=\(count)&client_id=PT4CxtdJOpxeUVguQn-yrfAy9fjNW8c15rDq9qbtjVE")!
+            return URL(string: "\(baseUrl)/photos/random/?count=\(count)&client_id=\(Constants.APIKEY.AccessKey)")!
         }
         static func searchUrl(query: String) -> URL {
-            return URL(string: "\(baseUrl)/search/photos/?query=\(query)&client_id=PT4CxtdJOpxeUVguQn-yrfAy9fjNW8c15rDq9qbtjVE")!
+            return URL(string: "\(baseUrl)/search/photos/?query=\(query)&client_id=\(Constants.APIKEY.AccessKey)") ?? randomUrl(count: 20)
+        }
+        static func getPhotoUrl(id: String) -> URL {
+            return URL(string: "\(baseUrl)/photos/\(id)/?client_id=\(Constants.APIKEY.AccessKey)")!
         }
     }
 }

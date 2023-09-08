@@ -36,16 +36,16 @@ class DetailViewModel: DetailsViewModelProtocol {
         "\(photo.downloads) Скачиваний"
     }
     var location: String {
-        return photo.location.name ?? ""
+        photo.location.name ?? ""
     }
     var image: String {
-        return photo.urls["small"] ?? ""
+        photo.urls["small"] ?? ""
     }
     var isFavorite: Bool {
         get {
-            DataService.shared.getFavoritePhoto(for: photo.id)
+            UserDefaultsService.shared.getFavoritePhoto(photo: photo, for: photo.id)
         } set {
-            DataService.shared.saveFavoritePhoto(for: photo.id, with: newValue)
+            UserDefaultsService.shared.saveFavoritePhoto(for: photo.id, with: newValue)
             viewModelDidChange?(self)
         }
     }

@@ -18,6 +18,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
+//        var data = Photo()
+//        data.id = "dfhvEXJORzk"
+//        data.urls = ["thumb":"https://images.unsplash.com/photo-1554895391-6035683c7190?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0OTMzMjh8MHwxfHJhbmRvbXx8fHx8fHx8fDE2OTQxOTMxOTZ8&ixlib=rb-4.0.3&q=80&w=200"]
+//        data.user.name = "Laela"
+//        RealmService.shared.deleteData(photo: data)
+//        let result = RealmService.shared.readData()
+//        print(result)
+        
         window?.rootViewController = TabBarContoller()
         window?.makeKeyAndVisible()
     }

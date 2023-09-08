@@ -12,15 +12,15 @@ protocol HomeViewModelProtocol {
     func searchData(query: String, completion: @escaping() -> ()) -> Void
     func search(query: String?, completion: @escaping() -> Void)
     func getCountData() -> Int
-    func getData(at indexPath: IndexPath) -> Photo
-    func getViewModelForSelectedRow(at indexPath: IndexPath) -> DetailsViewModelProtocol
+    func getViewModelForSelectedRow(at indexPath: IndexPath, completion: @escaping (DetailsViewModelProtocol) -> Void)
+    func getViewModelForCell(at indexPath: IndexPath) -> ImageCollectionViewCellViewModelProtocol
 }
 
 
 class HomeViewModel: HomeViewModelProtocol {
     
-    private var photos: [Photo]?
-    private var result: [ResultPhoto]?
+    private var photos: [ResultPhoto]?
+    private var photo: Photo?
     private var isSearch: Bool = false
     
     func fetchData(completion: @escaping() -> Void) {
@@ -39,7 +39,7 @@ class HomeViewModel: HomeViewModelProtocol {
         NetworkService.shared.SearchData(query: query) { [weak self] result in
             switch result {
             case .success(let data):
-                self?.result = data
+                self?.photos = data
                 completion()
             case .failure(let err):
                 print(err)
@@ -49,27 +49,34 @@ class HomeViewModel: HomeViewModelProtocol {
     
     func search(query: String?, completion: @escaping() -> Void) {
         guard let text = query else { return }
-        if !text.isEmpty {
-            isSearch.toggle()
-            searchData(query: text, completion: completion)
+        if text.count > 3 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+                self?.isSearch.toggle()
+                self?.searchData(query: text, completion: completion)
+            }
         } else {
             isSearch.toggle()
         }
     }
     
     func getCountData() -> Int {
-        //isSearch ? photos?.count ?? 0 : result?.count ?? 0
         photos?.count ?? 0
     }
     
-    func getData(at indexPath: IndexPath) -> Photo {
-        //isSearch ? photos?[indexPath.row] ?? Photo() : result?[indexPath.row] ?? ResultPhoto()
-        return photos?[indexPath.row] ?? Photo()
+    func getViewModelForCell(at indexPath: IndexPath) -> ImageCollectionViewCellViewModelProtocol {
+        let viewModel = ImageCollectionViewCellViewModel(photo: photos?[indexPath.row] ?? ResultPhoto())
+        return viewModel
     }
     
-    func getViewModelForSelectedRow(at indexPath: IndexPath) -> DetailsViewModelProtocol {
-        let photo = photos?[indexPath.row] ?? Photo()
-        print(photo)
-        return DetailViewModel(photo: photo)
+    func getViewModelForSelectedRow(at indexPath: IndexPath, completion: @escaping (DetailsViewModelProtocol) -> Void) {
+        NetworkService.shared.fetchData(id: photos?[indexPath.row].id ?? "") { result in
+            switch result {
+            case .success(let data):
+                let viewModel = DetailViewModel(photo: data)
+                completion(viewModel)
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
     }
 }

@@ -14,11 +14,11 @@ struct Photos: Codable {
 
 //MARK: - Photo
 struct Photo: Codable {
-    let id: String
+    var id: String
     let createAt: String
     let description: String?
-    let urls: [String : String]
-    let user: User
+    var urls: [String : String]
+    var user: User
     let downloads: Int
     let location: Location
     
@@ -56,7 +56,7 @@ struct Photo: Codable {
 //MARK: - User
 struct User: Codable {
     let id: String
-    let name: String
+    var name: String
     let profileImage: [String : String]
     
     enum CodingKeys: String, CodingKey {
@@ -74,7 +74,7 @@ struct User: Codable {
 
 // MARK: - Location
 struct Location: Codable {
-    let name: String?
+    var name: String?
     init() {
         self.name = "name"
     }

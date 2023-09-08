@@ -8,9 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		1963671C34B7CF424839894A /* Pods_FinallyApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 854F062B2CE9CD1AD9A4E853 /* Pods_FinallyApp.framework */; };
-		52AEEF142AA73F12007936D8 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AEEF132AA73F12007936D8 /* DataService.swift */; };
+		52AEEF142AA73F12007936D8 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AEEF132AA73F12007936D8 /* UserDefaultsService.swift */; };
 		52AEEF2C2AA9B793007936D8 /* FormatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AEEF2B2AA9B792007936D8 /* FormatService.swift */; };
 		52AEEF2E2AA9F411007936D8 /* ResultPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AEEF2D2AA9F411007936D8 /* ResultPhoto.swift */; };
+		52AEEF302AAAEFB2007936D8 /* ImageCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AEEF2F2AAAEFB2007936D8 /* ImageCollectionViewCellViewModel.swift */; };
+		52AEEF322AAB80E5007936D8 /* RealmPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AEEF312AAB80E5007936D8 /* RealmPhoto.swift */; };
+		52AEEF362AAB81E6007936D8 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AEEF352AAB81E6007936D8 /* RealmService.swift */; };
 		52F4B2C22A979EC900B3466A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F4B2C12A979EC900B3466A /* AppDelegate.swift */; };
 		52F4B2C42A979EC900B3466A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F4B2C32A979EC900B3466A /* SceneDelegate.swift */; };
 		52F4B2C62A979EC900B3466A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F4B2C52A979EC900B3466A /* HomeViewController.swift */; };
@@ -30,9 +33,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		52AEEF132AA73F12007936D8 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		52AEEF132AA73F12007936D8 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		52AEEF2B2AA9B792007936D8 /* FormatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatService.swift; sourceTree = "<group>"; };
 		52AEEF2D2AA9F411007936D8 /* ResultPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultPhoto.swift; sourceTree = "<group>"; };
+		52AEEF2F2AAAEFB2007936D8 /* ImageCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
+		52AEEF312AAB80E5007936D8 /* RealmPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmPhoto.swift; sourceTree = "<group>"; };
+		52AEEF352AAB81E6007936D8 /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		52F4B2BE2A979EC900B3466A /* FinallyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinallyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52F4B2C12A979EC900B3466A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52F4B2C32A979EC900B3466A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -71,7 +77,8 @@
 		52AEEF152AA73F1F007936D8 /* DataService */ = {
 			isa = PBXGroup;
 			children = (
-				52AEEF132AA73F12007936D8 /* DataService.swift */,
+				52AEEF342AAB81D0007936D8 /* RealmService */,
+				52AEEF332AAB81A8007936D8 /* UserDefaultsService */,
 			);
 			path = DataService;
 			sourceTree = "<group>";
@@ -91,6 +98,22 @@
 				52AEEF2B2AA9B792007936D8 /* FormatService.swift */,
 			);
 			path = FormaterService;
+			sourceTree = "<group>";
+		};
+		52AEEF332AAB81A8007936D8 /* UserDefaultsService */ = {
+			isa = PBXGroup;
+			children = (
+				52AEEF132AA73F12007936D8 /* UserDefaultsService.swift */,
+			);
+			path = UserDefaultsService;
+			sourceTree = "<group>";
+		};
+		52AEEF342AAB81D0007936D8 /* RealmService */ = {
+			isa = PBXGroup;
+			children = (
+				52AEEF352AAB81E6007936D8 /* RealmService.swift */,
+			);
+			path = RealmService;
 			sourceTree = "<group>";
 		};
 		52F4B2B52A979EC900B3466A = {
@@ -276,6 +299,7 @@
 			isa = PBXGroup;
 			children = (
 				52F4B2FD2A9BA95B00B3466A /* ImageCollectionViewCell.swift */,
+				52AEEF2F2AAAEFB2007936D8 /* ImageCollectionViewCellViewModel.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -285,6 +309,7 @@
 			children = (
 				52F4B3012AA1CFF700B3466A /* Photo.swift */,
 				52AEEF2D2AA9F411007936D8 /* ResultPhoto.swift */,
+				52AEEF312AAB80E5007936D8 /* RealmPhoto.swift */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
@@ -445,14 +470,17 @@
 				52AEEF2E2AA9F411007936D8 /* ResultPhoto.swift in Sources */,
 				52F4B2FE2A9BA95B00B3466A /* ImageCollectionViewCell.swift in Sources */,
 				52F4B3052AA1E19000B3466A /* HomeViewModel.swift in Sources */,
+				52AEEF302AAAEFB2007936D8 /* ImageCollectionViewCellViewModel.swift in Sources */,
 				52AEEF2C2AA9B793007936D8 /* FormatService.swift in Sources */,
 				52F4B3022AA1CFF800B3466A /* Photo.swift in Sources */,
-				52AEEF142AA73F12007936D8 /* DataService.swift in Sources */,
+				52AEEF322AAB80E5007936D8 /* RealmPhoto.swift in Sources */,
+				52AEEF142AA73F12007936D8 /* UserDefaultsService.swift in Sources */,
 				52F4B3082AA21A7C00B3466A /* DetailViewModel.swift in Sources */,
 				52F4B2C42A979EC900B3466A /* SceneDelegate.swift in Sources */,
 				52F4B2F82A9BA41800B3466A /* FavoriteViewController.swift in Sources */,
 				52F4B2F62A9BA3E600B3466A /* FavoriteViewModel.swift in Sources */,
 				52F4B30B2AA21ACA00B3466A /* DetailViewController.swift in Sources */,
+				52AEEF362AAB81E6007936D8 /* RealmService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
