@@ -43,9 +43,11 @@ class DetailViewModel: DetailsViewModelProtocol {
     }
     var isFavorite: Bool {
         get {
-            UserDefaultsService.shared.getFavoritePhoto(photo: photo, for: photo.id)
+            let photo = getPhoto()
+            return UserDefaultsService.shared.getFavoritePhoto(photo: photo, for: photo.id)
         } set {
-            UserDefaultsService.shared.saveFavoritePhoto(for: photo.id, with: newValue)
+            let photo = getPhoto()
+            UserDefaultsService.shared.saveFavoritePhoto(for: photo, with: newValue)
             viewModelDidChange?(self)
         }
     }
@@ -54,6 +56,14 @@ class DetailViewModel: DetailsViewModelProtocol {
     
     required init(photo: Photo) {
         self.photo = photo
+    }
+    
+    private func getPhoto() -> ResultPhoto {
+        var photo = ResultPhoto()
+        photo.id = self.photo.id
+        photo.user.name = self.photo.user.name
+        photo.urls = self.photo.urls
+        return photo
     }
     
     func favoriteButtonTapped() {

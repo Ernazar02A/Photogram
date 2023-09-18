@@ -36,7 +36,7 @@ class HomeViewModel: HomeViewModelProtocol {
     }
     
     func searchData(query: String, completion: @escaping() -> Void) {
-        NetworkService.shared.SearchData(query: query) { [weak self] result in
+        NetworkService.shared.searchData(query: query) { [weak self] result in
             switch result {
             case .success(let data):
                 self?.photos = data

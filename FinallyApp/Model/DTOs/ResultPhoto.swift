@@ -14,9 +14,9 @@ struct ResultPhotos: Codable {
 
 //MARK: - Photo
 struct ResultPhoto: Codable {
-    let id: String
-    let urls: [String : String]
-    let user: User
+    var id: String
+    var urls: [String : String]
+    var user: User
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -36,3 +36,5 @@ struct ResultPhoto: Codable {
         self.user = try container.decode(User.self, forKey: .user)
     }
 }
+
+

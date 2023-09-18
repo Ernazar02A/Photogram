@@ -7,7 +7,6 @@
 
 import RealmSwift
 
-
 class RealmPhoto: Object {
     @objc dynamic var id = ""
     @objc dynamic var image = ""

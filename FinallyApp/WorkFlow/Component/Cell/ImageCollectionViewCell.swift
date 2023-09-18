@@ -59,6 +59,11 @@ class ImageCollectionViewCell: UICollectionViewCell {
         contentView.isUserInteractionEnabled = false
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        photoImageView.image = nil
+    }
+    
     @objc private func favoriteButtonTapped(_ sender: UIButton) {
         viewModel.favoriteButtonTapped()
     }
