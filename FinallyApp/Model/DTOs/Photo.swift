@@ -78,6 +78,6 @@ struct User: Codable {
 struct Location: Codable {
     var name: String?
     init() {
-        self.name = "name"
+        self.name = ""
     }
 }

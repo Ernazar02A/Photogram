@@ -52,10 +52,10 @@ class UserDefaultsService {
     }
     
     func getPhotos() -> [ResultPhoto] {
-        guard let arr = userDefaults.array(forKey: photoKey) else {return []}
+        guard let arr = userDefaults.array(forKey: photoKey) as? [String] else {return []}
         var photoArr = [ResultPhoto]()
         for id in arr {
-            if let photo = userDefaults.data(forKey: (id as! String)) {
+            if let photo = userDefaults.data(forKey: id) {
                 do {
                     let model = try JSONDecoder().decode(ResultPhoto.self, from: photo)
                     photoArr.append(model)

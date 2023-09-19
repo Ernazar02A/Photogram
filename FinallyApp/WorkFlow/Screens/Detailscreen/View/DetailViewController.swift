@@ -17,12 +17,6 @@ class DetailViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private lazy var authorNameLabel: UILabel = {
-        let view = UILabel()
-        view.font = .systemFont(ofSize: 16, weight: .medium)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
     private lazy var authorImageView: UIImageView = {
         let view = UIImageView()
         view.clipsToBounds = true
@@ -30,25 +24,10 @@ class DetailViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private lazy var dateCreateLabel: UILabel = {
-        let view = UILabel()
-        view.font = .italicSystemFont(ofSize: 15)
-        view.layer.opacity = 0.5
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    private lazy var locationLabel: UILabel = {
-        let view = UILabel()
-        view.font = .systemFont(ofSize: 14, weight: .light)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    private lazy var countDownloadLabel: UILabel = {
-        let view = UILabel()
-        view.font = .systemFont(ofSize: 15)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    private lazy var authorNameLabel = ViewMaker.shared.makeLabel(font: .systemFont(ofSize: 16, weight: .medium))
+    private lazy var dateCreateLabel = ViewMaker.shared.makeLabel(font: .italicSystemFont(ofSize: 15), opacity: 0.5)
+    private lazy var locationLabel = ViewMaker.shared.makeLabel(font: .systemFont(ofSize: 14, weight: .light))
+    private lazy var countDownloadLabel = ViewMaker.shared.makeLabel(font: .systemFont(ofSize: 15))
 
     var viewModel: DetailsViewModelProtocol!
 
@@ -85,7 +64,7 @@ class DetailViewController: UIViewController {
     }
     
     private func setupView() {
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.setColor(lightColor: .white, darkColor: .black)
     }
     
     private func setupNavBar() {
@@ -145,7 +124,7 @@ class DetailViewController: UIViewController {
         let favoriteBarButtom = UIBarButtonItem(image: UIImage(named: viewModel.isFavorite ? "heartFill" : "heart")!,style: .done,target: self, action: #selector(favoriteButtonTapped))
         let downloadBarButtom = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.down")!,style: .done,target: self,action: #selector(downLoadButtonTapped))
         favoriteBarButtom.tintColor = .red
-        downloadBarButtom.tintColor = .black
+        downloadBarButtom.tintColor = UIColor.setColor(lightColor: .black, darkColor: .white)
         navigationItem.rightBarButtonItems = [favoriteBarButtom, downloadBarButtom]
     }
 }
