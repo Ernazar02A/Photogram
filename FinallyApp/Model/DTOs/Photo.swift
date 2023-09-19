@@ -57,16 +57,19 @@ struct Photo: Codable {
 struct User: Codable {
     let id: String
     var name: String
+    var userName: String?
     let profileImage: [String : String]
     enum CodingKeys: String, CodingKey {
         case id
         case name
+        case userName = "username"
         case profileImage = "profile_image"
     }
     
     init() {
         self.id = ""
         self.name = ""
+        self.userName = ""
         self.profileImage = ["":""]
     }
 }

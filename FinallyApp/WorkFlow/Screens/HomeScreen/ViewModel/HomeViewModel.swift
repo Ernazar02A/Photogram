@@ -14,11 +14,13 @@ class HomeViewModel: BaseViewModel {
     override func fetchData(completion: @escaping() -> Void) {
         NetworkService.shared.fetchRandomData { [weak self] result in
             switch result {
-            case .success(let data):
+            case .success(.resultPhotoArr(let data)):
                 self?.photos = data
                 completion()
             case .failure(let err):
                 print(err.localizedDescription)
+            default :
+                break
             }
         }
     }
@@ -26,11 +28,13 @@ class HomeViewModel: BaseViewModel {
     override func searchData(query: String, completion: @escaping() -> Void) {
         NetworkService.shared.searchData(query: query) { [weak self] result in
             switch result {
-            case .success(let data):
+            case .success(.resultPhotoArr(let data)):
                 self?.photos = data
                 completion()
             case .failure(let err):
                 print(err)
+            default :
+                break
             }
         }
     }

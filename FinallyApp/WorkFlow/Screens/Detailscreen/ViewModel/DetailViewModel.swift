@@ -36,7 +36,7 @@ class DetailViewModel: DetailsViewModelProtocol {
         "\(photo.downloads) Скачиваний"
     }
     var location: String {
-        photo.location.name ?? ""
+        photo.location.name ?? "name"
     }
     var image: String {
         photo.urls["small"] ?? ""
