@@ -8,14 +8,17 @@
 import Foundation
 
 class UserDefaultsService {
+    enum DeleteOrAdd {
+        case add
+        case remove
+    }
     static let shared = UserDefaultsService()
-    
     private let userDefaults = UserDefaults.standard
     private let photoKey = "ArrIdFavorite"
     
     func saveFavoritePhoto(for photo: ResultPhoto, with status: Bool) {
         if status {
-            addAndcheckId(id: photo.id + "1")
+            changeState(id: photo.id, operation: .add)
             do {
                 let data = try JSONEncoder().encode(photo)
                 userDefaults.set(data, forKey: photo.id + "1")
@@ -23,36 +26,26 @@ class UserDefaultsService {
                 print(error)
             }
         } else {
-            removeAndcheckId(id: photo.id + "1")
+            changeState(id: photo.id, operation: .remove)
         }
         userDefaults.set(status, forKey: photo.id)
     }
     
     func getFavoritePhoto(for photoId: String) -> Bool {
-        let result = userDefaults.bool(forKey: photoId)
-        return result
+        userDefaults.bool(forKey: photoId)
     }
     
-    private func addAndcheckId(id: String) {
-        guard var arr = userDefaults.array(forKey: photoKey) else {return}
-        var result = false
-        for i in arr {
-            if i as? String == id {
-                result = true
+    private func changeState(id: String, operation: DeleteOrAdd) {
+        guard var arr = userDefaults.array(forKey: photoKey)  as? [String] else { return }
+        let index = arr.firstIndex(where: {$0 == id + "1"})
+        switch operation {
+        case .add:
+            if index == nil {
+                arr.append(id + "1")
             }
-        }
-        if !result {
-            arr.append(id)
-        }
-        userDefaults.set(arr, forKey: photoKey)
-    }
-    
-    private func removeAndcheckId(id: String) {
-        guard var arr = userDefaults.array(forKey: photoKey) else {return}
-        for (index,i) in arr.enumerated() {
-            if i as? String == id {
+        case .remove:
+            if let index = index {
                 arr.remove(at: index)
-                break
             }
         }
         userDefaults.set(arr, forKey: photoKey)

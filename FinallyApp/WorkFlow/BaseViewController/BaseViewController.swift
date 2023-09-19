@@ -56,30 +56,11 @@ class BaseViewController: UIViewController {
 
 }
 
-////MARK: - UICollectionViewDataSource
-//extension BaseViewController: UICollectionViewDataSource {
-//    func collectionView(_ collectionView: UICollectionView,numberOfItemsInSection section: Int) -> Int {
-//        guard let count = viewModel?.getCountData() else { return 0 }
-//        return count
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView,cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        guard let cell = collectionView.dequeueReusableCell(
-//            withReuseIdentifier: ImageCollectionViewCell.identifier,
-//            for: indexPath
-//        ) as? ImageCollectionViewCell else { return UICollectionViewCell() }
-//        let viewModel = viewModel.getViewModelForCell(at: indexPath)
-//        cell.viewModel = viewModel
-//        return cell
-//    }
-//}
-
+//MARK: - ImageCollectionViewCellDelegate
 extension BaseViewController: ImageCollectionViewCellDelegate {
     func favoriteButtonTapped(state: Bool, id: String) {
         viewModel.changeStateIsFavorite(state: state, id: id) { result in
-            if result {
-                imageCollectionView.reloadData()
-            }
+            if result { imageCollectionView.reloadData() }
         }
     }
 }

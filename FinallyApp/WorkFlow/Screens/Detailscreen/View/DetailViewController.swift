@@ -68,7 +68,7 @@ class DetailViewController: UIViewController {
         showAlert(title: "Сохранен", message: "Фотка сохранен в вашу галерею")
     }
     
-    @objc private func showAlert(title: String, message: String) {
+    private func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default)
         alert.addAction(action)
@@ -143,7 +143,7 @@ class DetailViewController: UIViewController {
     
     private func setStatusForFavoriteButton() {
         let favoriteBarButtom = UIBarButtonItem(image: UIImage(named: viewModel.isFavorite ? "heartFill" : "heart")!,style: .done,target: self, action: #selector(favoriteButtonTapped))
-        let downloadBarButtom = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.down")!,style: .done,target: self,action: #selector(favoriteButtonTapped))
+        let downloadBarButtom = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.down")!,style: .done,target: self,action: #selector(downLoadButtonTapped))
         favoriteBarButtom.tintColor = .red
         downloadBarButtom.tintColor = .black
         navigationItem.rightBarButtonItems = [favoriteBarButtom, downloadBarButtom]

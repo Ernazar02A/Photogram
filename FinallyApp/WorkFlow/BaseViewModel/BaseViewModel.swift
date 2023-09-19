@@ -7,15 +7,6 @@
 
 import Foundation
 
-//protocol HomeViewModelProtocol {
-//    func fetchData(completion: @escaping() -> ()) -> Void
-//    func searchData(query: String, completion: @escaping() -> ()) -> Void
-//    func search(query: String?, completion: @escaping() -> Void)
-//    func getCountData() -> Int
-//    func getViewModelForSelectedRow(at indexPath: IndexPath, completion: @escaping (DetailsViewModelProtocol) -> Void)
-//    func getViewModelForCell(at indexPath: IndexPath) -> ImageCollectionViewCellViewModelProtocol
-//}
-
 protocol HomeViewModelProtocol {
     func fetchData(completion: @escaping() -> ()) -> Void
     func searchData(query: String, completion: @escaping() -> ()) -> Void
@@ -33,11 +24,6 @@ class BaseViewModel: HomeViewModelProtocol {
     
     func getCountData() -> Int {
         photos?.count ?? 0
-    }
-    
-    func getViewModelForCell(at indexPath: IndexPath) -> ImageCollectionViewCellViewModelProtocol {
-        let viewModel = ImageCollectionViewCellViewModel(photo: photos?[indexPath.row] ?? ResultPhoto())
-        return viewModel
     }
     
     func getViewModelForSelectedRow(at indexPath: IndexPath, completion: @escaping (DetailsViewModelProtocol) -> Void) {
