@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 enum Constants {
     enum APIKEY {
         static let AccessKey = "PT4CxtdJOpxeUVguQn-yrfAy9fjNW8c15rDq9qbtjVE"

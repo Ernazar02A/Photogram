@@ -28,7 +28,7 @@ class UserDefaultsService {
         userDefaults.set(status, forKey: photo.id)
     }
     
-    func getFavoritePhoto(photo: ResultPhoto, for photoId: String) -> Bool {
+    func getFavoritePhoto(for photoId: String) -> Bool {
         let result = userDefaults.bool(forKey: photoId)
         return result
     }

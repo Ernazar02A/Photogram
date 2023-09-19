@@ -58,10 +58,10 @@ class DetailViewController: UIViewController {
         setupUI()
     }
     
-    @objc private func favoriteButtonTapped(_ sender: UIButton) {
+    @objc private func favoriteButtonTapped() {
         viewModel.favoriteButtonTapped()
     }
-    @objc private func downLoadButtonTapped(_ sender: UIButton) {
+    @objc private func downLoadButtonTapped() {
         let imageData = photoImageView.image?.pngData()
         let compressedImage = UIImage(data: imageData!)
         UIImageWriteToSavedPhotosAlbum(compressedImage!, nil, nil, nil)
@@ -138,28 +138,12 @@ class DetailViewController: UIViewController {
             
             countDownloadLabel.topAnchor.constraint(equalTo: dateCreateLabel.bottomAnchor,constant: 5),
             countDownloadLabel.leadingAnchor.constraint(equalTo: dateCreateLabel.leadingAnchor,constant: 0),
-            
-            
-            
-            //authorNameLabel.topAnchor.constraint(equalTo: dateCreateLabel.bottomAnchor,constant: 5),
-            //authorNameLabel.leadingAnchor.constraint(equalTo: dateCreateLabel.leadingAnchor,constant: 0),
         ])
     }
     
     private func setStatusForFavoriteButton() {
-        let image = UIImage(named: viewModel.isFavorite ? "heartFill" : "heart")
-        let favoriteBarButtom = UIBarButtonItem(
-            image: image,
-            style: .done,
-            target: self,
-            action: #selector(favoriteButtonTapped)
-        )
-        let downloadBarButtom = UIBarButtonItem(
-            image: UIImage(systemName: "square.and.arrow.down"),
-            style: .done,
-            target: self,
-            action: #selector(downLoadButtonTapped)
-        )
+        let favoriteBarButtom = UIBarButtonItem(image: UIImage(named: viewModel.isFavorite ? "heartFill" : "heart")!,style: .done,target: self, action: #selector(favoriteButtonTapped))
+        let downloadBarButtom = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.down")!,style: .done,target: self,action: #selector(favoriteButtonTapped))
         favoriteBarButtom.tintColor = .red
         downloadBarButtom.tintColor = .black
         navigationItem.rightBarButtonItems = [favoriteBarButtom, downloadBarButtom]

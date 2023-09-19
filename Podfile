@@ -7,5 +7,4 @@ target 'FinallyApp' do
 
   # Pods for FinallyApp
   pod "Kingfisher"
-  pod "RealmSwift"
 end

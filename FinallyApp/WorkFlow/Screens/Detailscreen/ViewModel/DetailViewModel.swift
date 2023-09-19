@@ -44,7 +44,7 @@ class DetailViewModel: DetailsViewModelProtocol {
     var isFavorite: Bool {
         get {
             let photo = getPhoto()
-            return UserDefaultsService.shared.getFavoritePhoto(photo: photo, for: photo.id)
+            return UserDefaultsService.shared.getFavoritePhoto( for: photo.id)
         } set {
             let photo = getPhoto()
             UserDefaultsService.shared.saveFavoritePhoto(for: photo, with: newValue)

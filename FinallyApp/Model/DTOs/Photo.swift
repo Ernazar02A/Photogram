@@ -58,7 +58,6 @@ struct User: Codable {
     let id: String
     var name: String
     let profileImage: [String : String]
-    
     enum CodingKeys: String, CodingKey {
         case id
         case name

@@ -17,6 +17,7 @@ struct ResultPhoto: Codable {
     var id: String
     var urls: [String : String]
     var user: User
+    var isFavorite: Bool?
     
     enum CodingKeys: String, CodingKey {
         case id
