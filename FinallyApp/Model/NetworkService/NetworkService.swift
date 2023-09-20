@@ -30,6 +30,7 @@ class NetworkService {
     }
     
     func fetchRandomData(completion: @escaping (Result<TypePhoto,Error>) -> Void) {
+
         let url = Constants.APIURL.randomUrl(count: 20)
         request(url: url, completion: completion) { data in 
             do {

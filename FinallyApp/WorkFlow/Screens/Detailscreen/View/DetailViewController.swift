@@ -102,6 +102,10 @@ class DetailViewController: UIViewController {
         DispatchQueue.main.async { [weak self] in
             self?.authorNameLabel.text = self?.viewModel.userName
             self?.photoImageView.kf.setImage(with: URL(string: self?.viewModel.image ?? ""))
+            self?.photoImageView.kf.setImage(
+                with: URL(string: self?.viewModel.image ?? ""),
+                placeholder: UIImage.init(blurHash: self?.viewModel.blurHash ?? "", size: CGSize(width: self?.viewModel.width ?? 0, height: self?.viewModel.height ?? 0))
+            )
             self?.authorImageView.kf.setImage(with: URL(string: self?.viewModel.userImage ?? ""))
             self?.dateCreateLabel.text = self?.viewModel.createDate
             self?.locationLabel.text = self?.viewModel.location
@@ -182,7 +186,7 @@ extension DetailViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: PhotoCollectionViewCell.identifier, for: indexPath
         ) as? PhotoCollectionViewCell else {return UICollectionViewCell()}
-        cell.configure(url: viewModel.getDataCell(at: indexPath))
+        cell.configure(model: viewModel.getDataCell(at: indexPath))
         return cell
     }
 }

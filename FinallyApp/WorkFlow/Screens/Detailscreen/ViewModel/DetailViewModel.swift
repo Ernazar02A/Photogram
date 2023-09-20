@@ -9,6 +9,9 @@ import Foundation
 
 protocol DetailsViewModelProtocol {
     var image: String { get }
+    var blurHash: String { get }
+    var height: Int { get }
+    var width: Int { get }
     var userName: String { get }
     var userImage: String { get }
     var createDate: String { get }
@@ -17,7 +20,7 @@ protocol DetailsViewModelProtocol {
     var isFavorite: Bool { get }
     var viewModelDidChange: ((DetailsViewModelProtocol) -> Void)? { get set }
     func getCountData() -> Int
-    func getDataCell(at indexPath: IndexPath) -> URL?
+    func getDataCell(at indexPath: IndexPath) -> ResultPhoto
     func getdidSelectItem(at indexPath: IndexPath, completion: @escaping () -> ())
     func favoriteButtonTapped()
     func getUserPhotos(completion: @escaping() -> ()) -> Void
@@ -44,6 +47,15 @@ class DetailViewModel: DetailsViewModelProtocol {
     }
     var image: String {
         photo.urls.small
+    }
+    var width: Int {
+        photo.width / 120
+    }
+    var height: Int {
+        photo.height / 120
+    }
+    var blurHash: String {
+        photo.blurHash
     }
     var isFavorite: Bool {
         get {
@@ -103,8 +115,8 @@ class DetailViewModel: DetailsViewModelProtocol {
         return userPhotos.count
     }
     
-    func getDataCell(at indexPath: IndexPath) -> URL? {
-        return URL(string: userPhotos[indexPath.row].urls.thumb)
+    func getDataCell(at indexPath: IndexPath) -> ResultPhoto {
+        return userPhotos[indexPath.row]
     }
     
     func favoriteButtonTapped() {
