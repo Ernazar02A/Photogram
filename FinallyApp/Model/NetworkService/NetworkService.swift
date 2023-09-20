@@ -19,7 +19,6 @@ class NetworkService {
     let decoder = JSONDecoder()
     
     private func request(url: URL, completion: @escaping (Result<TypePhoto,Error>) -> Void, handler: @escaping (Data) -> Void) {
-        print(url)
         let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
             if let err = error {
                 print(err.localizedDescription)

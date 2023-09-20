@@ -185,7 +185,9 @@ extension DetailViewController: UICollectionViewDataSource {
 }
 //MARK: - UICollectionViewDelegate
 extension DetailViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //
+    }
 }
 
 //MARK: - UICollectionViewDelegateFlowLayout
