@@ -18,6 +18,7 @@ protocol DetailsViewModelProtocol {
     var viewModelDidChange: ((DetailsViewModelProtocol) -> Void)? { get set }
     func getCountData() -> Int
     func getDataCell(at indexPath: IndexPath) -> URL?
+    func getdidSelectItem(at indexPath: IndexPath, completion: @escaping () -> ())
     func favoriteButtonTapped()
     func getUserPhotos(completion: @escaping() -> ()) -> Void
     init(photo: Photo)
@@ -56,7 +57,7 @@ class DetailViewModel: DetailsViewModelProtocol {
     }
     private var userPhotos: [ResultPhoto] = []
     var viewModelDidChange: ((DetailsViewModelProtocol) -> Void)?
-    private let photo: Photo
+    private var photo: Photo
     
     required init(photo: Photo) {
         self.photo = photo
@@ -79,6 +80,20 @@ class DetailViewModel: DetailsViewModelProtocol {
             case .failure(let err):
                 print(err)
             default :
+                break
+            }
+        }
+    }
+    
+    func getdidSelectItem(at indexPath: IndexPath, completion: @escaping () -> ()) {
+        NetworkService.shared.fetchDataById(id: userPhotos[indexPath.row].id) {[weak self] result in
+            switch result {
+            case .success(.photo(let data)):
+                self?.photo = data
+                completion()
+            case .failure(let err):
+                print(err.localizedDescription)
+            default:
                 break
             }
         }

@@ -15,11 +15,11 @@ struct Photos: Codable {
 //MARK: - Photo
 struct Photo: Codable {
     var id: String
-    let createAt: String
+    var createAt: String
     let description: String?
     var urls: Urls
     var user: User
-    let downloads: Int
+    var downloads: Int
     let location: Location
     
     enum CodingKeys: String, CodingKey {
