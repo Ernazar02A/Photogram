@@ -19,6 +19,7 @@ class NetworkService {
     let decoder = JSONDecoder()
     
     private func request(url: URL, completion: @escaping (Result<TypePhoto,Error>) -> Void, handler: @escaping (Data) -> Void) {
+        print(url)
         let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
             if let err = error {
                 print(err.localizedDescription)
@@ -55,13 +56,26 @@ class NetworkService {
         }
     }
     
-    func fetchData(id: String, completion: @escaping (Result<TypePhoto,Error>) -> Void) {
+    func fetchDataById(id: String, completion: @escaping (Result<TypePhoto,Error>) -> Void) {
         let url = Constants.APIURL.getPhotoUrl(id: id)
         
         request(url: url, completion: completion) { [unowned self] data in
             do {
                 let model = try self.decoder.decode(Photo.self, from: data)
                 completion(.success(.photo(model)))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func fetchDataByUsername(username: String, completion: @escaping (Result<TypePhoto,Error>) -> Void) {
+        let url = Constants.APIURL.getUserPhotosUrl(userName: username)
+        
+        request(url: url, completion: completion) { [unowned self] data in
+            do {
+                let models = try self.decoder.decode([ResultPhoto].self, from: data)
+                completion(.success(.resultPhotoArr(models)))
             } catch {
                 completion(.failure(error))
             }

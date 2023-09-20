@@ -16,7 +16,10 @@ protocol DetailsViewModelProtocol {
     var location: String { get }
     var isFavorite: Bool { get }
     var viewModelDidChange: ((DetailsViewModelProtocol) -> Void)? { get set }
+    func getCountData() -> Int
+    func getDataCell(at indexPath: IndexPath) -> URL?
     func favoriteButtonTapped()
+    func getUserPhotos(completion: @escaping() -> ()) -> Void
     init(photo: Photo)
 }
 
@@ -39,7 +42,7 @@ class DetailViewModel: DetailsViewModelProtocol {
         photo.location.name ?? ""
     }
     var image: String {
-        photo.urls["small"] ?? ""
+        photo.urls.small
     }
     var isFavorite: Bool {
         get {
@@ -51,6 +54,7 @@ class DetailViewModel: DetailsViewModelProtocol {
             viewModelDidChange?(self)
         }
     }
+    private var userPhotos: [ResultPhoto] = []
     var viewModelDidChange: ((DetailsViewModelProtocol) -> Void)?
     private let photo: Photo
     
@@ -64,6 +68,28 @@ class DetailViewModel: DetailsViewModelProtocol {
         photo.user.name = self.photo.user.name
         photo.urls = self.photo.urls
         return photo
+    }
+    
+    func getUserPhotos(completion: @escaping () -> ()) {
+        NetworkService.shared.fetchDataByUsername(username: photo.user.userName ?? "") { [weak self] result in
+            switch result {
+            case .success(.resultPhotoArr(let datas)):
+                self?.userPhotos = datas
+                completion()
+            case .failure(let err):
+                print(err)
+            default :
+                break
+            }
+        }
+    }
+    
+    func getCountData() -> Int {
+        return userPhotos.count
+    }
+    
+    func getDataCell(at indexPath: IndexPath) -> URL? {
+        return URL(string: userPhotos[indexPath.row].urls.thumb)
     }
     
     func favoriteButtonTapped() {

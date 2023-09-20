@@ -15,7 +15,7 @@ struct ResultPhotos: Codable {
 //MARK: - Photo
 struct ResultPhoto: Codable {
     var id: String
-    var urls: [String : String]
+    var urls: Urls
     var user: User
     var isFavorite: Bool?
     
@@ -27,13 +27,13 @@ struct ResultPhoto: Codable {
     
     init() {
         self.id = ""
-        self.urls = ["":""]
+        self.urls = Urls()
         self.user = User()
     }
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(String.self, forKey: .id)
-        self.urls = try container.decode([String : String].self, forKey: .urls)
+        self.urls = try container.decode(Urls.self, forKey: .urls)
         self.user = try container.decode(User.self, forKey: .user)
     }
 }

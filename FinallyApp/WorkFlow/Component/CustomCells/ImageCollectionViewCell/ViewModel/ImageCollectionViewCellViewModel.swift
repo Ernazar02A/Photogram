@@ -19,7 +19,7 @@ protocol ImageCollectionViewCellViewModelProtocol {
 class ImageCollectionViewCellViewModel: ImageCollectionViewCellViewModelProtocol {
     
     var image: String {
-        photo.urls["thumb"]!
+        photo.urls.thumb
     }
     var userName: String {
         photo.user.name

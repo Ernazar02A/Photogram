@@ -16,6 +16,7 @@
 		52B4E6012AB8887100D1BC5F /* Extension + UICollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B4E6002AB8887100D1BC5F /* Extension + UICollectionViewCell.swift */; };
 		52B4E6032ABA196300D1BC5F /* ViewMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B4E6022ABA196300D1BC5F /* ViewMaker.swift */; };
 		52B4E6092ABA234C00D1BC5F /* extention + UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B4E6082ABA234C00D1BC5F /* extention + UIColor.swift */; };
+		52B4E60C2ABAB66800D1BC5F /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B4E60B2ABAB66800D1BC5F /* PhotoCollectionViewCell.swift */; };
 		52F4B2C22A979EC900B3466A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F4B2C12A979EC900B3466A /* AppDelegate.swift */; };
 		52F4B2C42A979EC900B3466A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F4B2C32A979EC900B3466A /* SceneDelegate.swift */; };
 		52F4B2C62A979EC900B3466A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F4B2C52A979EC900B3466A /* HomeViewController.swift */; };
@@ -43,6 +44,7 @@
 		52B4E6002AB8887100D1BC5F /* Extension + UICollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UICollectionViewCell.swift"; sourceTree = "<group>"; };
 		52B4E6022ABA196300D1BC5F /* ViewMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMaker.swift; sourceTree = "<group>"; };
 		52B4E6082ABA234C00D1BC5F /* extention + UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extention + UIColor.swift"; sourceTree = "<group>"; };
+		52B4E60B2ABAB66800D1BC5F /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		52F4B2BE2A979EC900B3466A /* FinallyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinallyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52F4B2C12A979EC900B3466A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52F4B2C32A979EC900B3466A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -168,6 +170,14 @@
 				52B4E6082ABA234C00D1BC5F /* extention + UIColor.swift */,
 			);
 			path = UIColor;
+			sourceTree = "<group>";
+		};
+		52B4E60A2ABAB62E00D1BC5F /* PhotoCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				52B4E60B2ABAB66800D1BC5F /* PhotoCollectionViewCell.swift */,
+			);
+			path = PhotoCollectionViewCell;
 			sourceTree = "<group>";
 		};
 		52F4B2B52A979EC900B3466A = {
@@ -354,6 +364,7 @@
 		52F4B2FF2A9BA96500B3466A /* CustomCells */ = {
 			isa = PBXGroup;
 			children = (
+				52B4E60A2ABAB62E00D1BC5F /* PhotoCollectionViewCell */,
 				52B4E5FE2AB887A100D1BC5F /* ImageCollectionViewCell */,
 			);
 			path = CustomCells;
@@ -524,6 +535,7 @@
 				52B4E6092ABA234C00D1BC5F /* extention + UIColor.swift in Sources */,
 				52F4B2FB2A9BA44100B3466A /* BaseViewController.swift in Sources */,
 				52B4E6012AB8887100D1BC5F /* Extension + UICollectionViewCell.swift in Sources */,
+				52B4E60C2ABAB66800D1BC5F /* PhotoCollectionViewCell.swift in Sources */,
 				52AEEF2E2AA9F411007936D8 /* ResultPhoto.swift in Sources */,
 				52F4B2FE2A9BA95B00B3466A /* ImageCollectionViewCell.swift in Sources */,
 				52F4B3052AA1E19000B3466A /* HomeViewModel.swift in Sources */,

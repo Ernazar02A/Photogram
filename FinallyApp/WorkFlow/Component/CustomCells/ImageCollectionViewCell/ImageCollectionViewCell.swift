@@ -94,7 +94,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(model: ResultPhoto) {
-        let url = URL(string: model.urls["thumb"]!)
+        let url = URL(string: model.urls.thumb)
         photoImageView.kf.setImage(with: url)
         authorNameLabel.text = model.user.name
         id = model.id

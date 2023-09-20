@@ -27,7 +27,7 @@ class BaseViewModel: HomeViewModelProtocol {
     }
     
     func getViewModelForSelectedRow(at indexPath: IndexPath, completion: @escaping (DetailsViewModelProtocol) -> Void) {
-        NetworkService.shared.fetchData(id: photos?[indexPath.row].id ?? "") { result in
+        NetworkService.shared.fetchDataById(id: photos?[indexPath.row].id ?? "") { result in
             switch result {
             case .success(.photo(let data)):
                 let viewModel = DetailViewModel(photo: data)

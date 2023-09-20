@@ -17,7 +17,7 @@ struct Photo: Codable {
     var id: String
     let createAt: String
     let description: String?
-    var urls: [String : String]
+    var urls: Urls
     var user: User
     let downloads: Int
     let location: Location
@@ -36,7 +36,7 @@ struct Photo: Codable {
         self.id = ""
         self.createAt = ""
         self.description = ""
-        self.urls = ["":""]
+        self.urls = Urls()
         self.user = User()
         self.downloads = 0
         self.location = Location()
@@ -45,11 +45,30 @@ struct Photo: Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(String.self, forKey: .id)
         self.description = try container.decodeIfPresent(String.self, forKey: .description)
-        self.urls = try container.decode([String : String].self, forKey: .urls)
+        self.urls = try container.decode(Urls.self.self, forKey: .urls)
         self.user = try container.decode(User.self, forKey: .user)
         self.createAt = try container.decode(String.self, forKey: .createAt)
         self.location = try container.decode(Location.self, forKey: .location)
         self.downloads = try container.decode(Int.self, forKey: .downloads)
+    }
+}
+
+// MARK: - Urls
+struct Urls: Codable {
+    let raw, full, regular, small: String
+    let thumb, smallS3: String
+
+    init() {
+        self.raw = "raw"
+        self.full = "full"
+        self.regular = "regular"
+        self.small = "small"
+        self.thumb = "thumb"
+        self.smallS3 = "smallS3"
+    }
+    enum CodingKeys: String, CodingKey {
+        case raw, full, regular, small, thumb
+        case smallS3 = "small_s3"
     }
 }
 

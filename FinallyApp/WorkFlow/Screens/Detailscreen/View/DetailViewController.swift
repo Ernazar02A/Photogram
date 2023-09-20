@@ -24,10 +24,29 @@ class DetailViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    private lazy var deviderView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.setColor(lightColor: .black, darkColor: .white)
+        view.layer.opacity = 0.5
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     private lazy var authorNameLabel = ViewMaker.shared.makeLabel(font: .systemFont(ofSize: 16, weight: .medium))
     private lazy var dateCreateLabel = ViewMaker.shared.makeLabel(font: .italicSystemFont(ofSize: 15), opacity: 0.5)
     private lazy var locationLabel = ViewMaker.shared.makeLabel(font: .systemFont(ofSize: 14, weight: .light))
     private lazy var countDownloadLabel = ViewMaker.shared.makeLabel(font: .systemFont(ofSize: 15))
+    private lazy var headerTitleCollectionLabel = ViewMaker.shared.makeLabel(text: "Другие фотки автора",font: .systemFont(ofSize: 20, weight: .medium))
+    
+    private lazy var imageCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.delegate = self
+        view.dataSource = self
+        view.register(PhotoCollectionViewCell.self,forCellWithReuseIdentifier: PhotoCollectionViewCell.identifier)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
     var viewModel: DetailsViewModelProtocol!
 
@@ -75,6 +94,11 @@ class DetailViewController: UIViewController {
         viewModel.viewModelDidChange = { [weak self] viewModel in
             self?.setStatusForFavoriteButton()
         }
+        viewModel.getUserPhotos { [weak self] in
+            DispatchQueue.main.async {
+                self?.imageCollectionView.reloadData()
+            }
+        }
         photoImageView.kf.setImage(with: URL(string: viewModel.image))
         authorNameLabel.text = viewModel.userName
         authorImageView.kf.setImage(with: URL(string: viewModel.userImage))
@@ -91,6 +115,9 @@ class DetailViewController: UIViewController {
         view.addSubview(authorImageView)
         view.addSubview(authorNameLabel)
         view.addSubview(locationLabel)
+        view.addSubview(imageCollectionView)
+        view.addSubview(headerTitleCollectionLabel)
+        view.addSubview(deviderView)
     }
     
     private func setupConstraints() {
@@ -117,6 +144,19 @@ class DetailViewController: UIViewController {
             
             countDownloadLabel.topAnchor.constraint(equalTo: dateCreateLabel.bottomAnchor,constant: 5),
             countDownloadLabel.leadingAnchor.constraint(equalTo: dateCreateLabel.leadingAnchor,constant: 0),
+            
+            deviderView.topAnchor.constraint(equalTo: countDownloadLabel.bottomAnchor,constant: 5),
+            deviderView.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 0),
+            deviderView.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: 0),
+            deviderView.heightAnchor.constraint(equalToConstant: 1),
+            
+            headerTitleCollectionLabel.topAnchor.constraint(equalTo: deviderView.bottomAnchor,constant: 5),
+            headerTitleCollectionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 15),
+            
+            imageCollectionView.topAnchor.constraint(equalTo: headerTitleCollectionLabel.bottomAnchor,constant: -10),
+            imageCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 0),
+            imageCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: 0),
+            imageCollectionView.heightAnchor.constraint(equalToConstant: 250)
         ])
     }
     
@@ -128,3 +168,50 @@ class DetailViewController: UIViewController {
         navigationItem.rightBarButtonItems = [favoriteBarButtom, downloadBarButtom]
     }
 }
+
+//MARK: - UICollectionViewDataSource
+extension DetailViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        viewModel.getCountData()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: PhotoCollectionViewCell.identifier, for: indexPath
+        ) as? PhotoCollectionViewCell else {return UICollectionViewCell()}
+        cell.configure(url: viewModel.getDataCell(at: indexPath))
+        return cell
+    }
+}
+//MARK: - UICollectionViewDelegate
+extension DetailViewController: UICollectionViewDelegate {
+    
+}
+
+//MARK: - UICollectionViewDelegateFlowLayout
+extension DetailViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        CGSize(width: view.bounds.width / 2 - 20, height: 200 / view.bounds.height * 852)
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int
+    ) -> UIEdgeInsets {
+        UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int
+    ) -> CGFloat {
+        15
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int
+    ) -> CGFloat {
+        10
+    }
+}
+
