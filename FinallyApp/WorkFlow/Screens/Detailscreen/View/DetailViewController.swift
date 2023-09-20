@@ -99,13 +99,16 @@ class DetailViewController: UIViewController {
                 self?.imageCollectionView.reloadData()
             }
         }
-        photoImageView.kf.setImage(with: URL(string: viewModel.image))
-        authorNameLabel.text = viewModel.userName
-        authorImageView.kf.setImage(with: URL(string: viewModel.userImage))
-        dateCreateLabel.text = viewModel.createDate
-        locationLabel.text = viewModel.location
-        countDownloadLabel.text = viewModel.numberOfDownload
-        dateCreateLabel.text = viewModel.createDate
+        DispatchQueue.main.async { [weak self] in
+            self?.authorNameLabel.text = self?.viewModel.userName
+            self?.photoImageView.kf.setImage(with: URL(string: self?.viewModel.image ?? ""))
+            self?.authorImageView.kf.setImage(with: URL(string: self?.viewModel.userImage ?? ""))
+            self?.dateCreateLabel.text = self?.viewModel.createDate
+            self?.locationLabel.text = self?.viewModel.location
+            self?.countDownloadLabel.text = self?.viewModel.numberOfDownload
+            self?.dateCreateLabel.text = self?.viewModel.createDate
+        }
+        
     }
     
     private func setupSubview() {
@@ -127,7 +130,7 @@ class DetailViewController: UIViewController {
             authorImageView.heightAnchor.constraint(equalToConstant: 40),
             authorImageView.widthAnchor.constraint(equalToConstant: 40),
             
-            authorNameLabel.topAnchor.constraint(equalTo: authorImageView.topAnchor,constant: 0),
+            authorNameLabel.bottomAnchor.constraint(equalTo: locationLabel.topAnchor,constant: 3),
             authorNameLabel.leadingAnchor.constraint(equalTo: authorImageView.trailingAnchor,constant: 5),
             
             locationLabel.bottomAnchor.constraint(equalTo: authorImageView.bottomAnchor,constant: 0),
