@@ -8,11 +8,12 @@
 import UIKit
 
 class TabBarContoller: UITabBarController {
+    
     override func viewDidLoad() {
-        //view.backgroundColor = .systemYellow
-        
-        //  Код ниже необ
-        
+        setupTabBar()
+    }
+    
+    private func setupTabBar() {
         let homeViewController = UINavigationController(rootViewController: HomeViewController())
         let FavoriteViewController = UINavigationController(rootViewController: FavoriteViewController())
         
