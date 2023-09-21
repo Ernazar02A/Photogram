@@ -44,10 +44,13 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(model: ResultPhoto) {
-        guard let url = URL(string: model.urls.small) else { return }
+        guard let url = URL(string: model.urls?.small ?? "") else { return }
         photoImageView.kf.setImage(
             with: url,
-            placeholder: UIImage.init(blurHash: model.blurHash, size: CGSize(width: model.width / 120, height: model.height / 120))
+            placeholder: UIImage.init(
+                blurHash: model.blurHash ?? "",
+                size: CGSize(width: (model.width ?? 120) / 120, height: (model.height ?? 120) / 120)
+            )
         )
     }
     

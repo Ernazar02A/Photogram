@@ -8,9 +8,9 @@
 import Foundation
 
 protocol ImageCollectionViewCellViewModelProtocol {
-    var image: String { get }
-    var userName: String { get }
-    var userImage: String { get }
+    var image: String? { get }
+    var userName: String? { get }
+    var userImage: String? { get }
     var isFavorite: Bool { get }
     var viewModelDidChange: ((ImageCollectionViewCellViewModelProtocol) -> Void)? { get set }
     func favoriteButtonTapped()
@@ -18,14 +18,14 @@ protocol ImageCollectionViewCellViewModelProtocol {
 }
 class ImageCollectionViewCellViewModel: ImageCollectionViewCellViewModelProtocol {
     
-    var image: String {
-        photo.urls.thumb
+    var image: String? {
+        photo.urls?.thumb
     }
-    var userName: String {
-        photo.user.name
+    var userName: String? {
+        photo.user?.name
     }
-    var userImage: String {
-        photo.user.profileImage["small"]!
+    var userImage: String? {
+        photo.user?.profileImage["small"]
     }
     var isFavorite: Bool {
         get {
@@ -48,7 +48,7 @@ class ImageCollectionViewCellViewModel: ImageCollectionViewCellViewModelProtocol
     private func getPhoto() -> ResultPhoto {
         var photo = ResultPhoto()
         photo.id = self.photo.id
-        photo.user.name = self.photo.user.name
+        photo.user?.name = self.photo.user?.name ?? ""
         photo.urls = self.photo.urls
         return photo
     }

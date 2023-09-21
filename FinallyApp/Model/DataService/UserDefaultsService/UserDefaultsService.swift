@@ -16,26 +16,29 @@ class UserDefaultsService {
     private let userDefaults = UserDefaults.standard
     private let photoKey = "ArrIdFavorite"
     
-    func saveFavoritePhoto(for photo: ResultPhoto, with status: Bool) {
+    func saveFavoritePhoto(for photo: ResultPhoto?, with status: Bool) {
+        guard let model = photo else { return }
         if status {
-            changeState(id: photo.id, operation: .add)
+            changeState(id: model.id, operation: .add)
             do {
-                let data = try JSONEncoder().encode(photo)
-                userDefaults.set(data, forKey: photo.id + "1")
+                let data = try JSONEncoder().encode(model)
+                userDefaults.set(data, forKey: (model.id ?? "") + "1")
             } catch {
                 print(error)
             }
         } else {
-            changeState(id: photo.id, operation: .remove)
+            changeState(id: model.id, operation: .remove)
         }
-        userDefaults.set(status, forKey: photo.id)
+        userDefaults.set(status, forKey: model.id ?? "")
     }
     
-    func getFavoritePhoto(for photoId: String) -> Bool {
-        userDefaults.bool(forKey: photoId)
+    func getFavoritePhoto(for photoId: String?) -> Bool {
+        guard let id = photoId else {return false}
+        return userDefaults.bool(forKey: id)
     }
     
-    private func changeState(id: String, operation: DeleteOrAdd) {
+    private func changeState(id: String?, operation: DeleteOrAdd) {
+        guard let id = id else {return}
         guard var arr = userDefaults.array(forKey: photoKey)  as? [String] else { return }
         let index = arr.firstIndex(where: {$0 == id + "1"})
         switch operation {

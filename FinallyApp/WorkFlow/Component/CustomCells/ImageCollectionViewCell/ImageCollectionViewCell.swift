@@ -94,13 +94,15 @@ class ImageCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(model: ResultPhoto) {
-        let url = URL(string: model.urls.small)
+        guard let url = URL(string: model.urls?.small ?? "") else {return}
         photoImageView.kf.setImage(
             with: url,
-            placeholder: UIImage.init(blurHash: model.blurHash, size: CGSize(width: model.width / 120, height: model.height / 120))
+            placeholder: UIImage.init(
+                blurHash: model.blurHash ?? "",
+                size: CGSize(width: (model.width ?? 120) / 120, height: (model.height ?? 120) / 120))
         )
-        authorNameLabel.text = model.user.name
-        id = model.id
+        authorNameLabel.text = model.user?.name
+        id = model.id ?? ""
         setStatusForFavoriteButton(state: model.isFavorite ?? false)
     }
                     

@@ -8,15 +8,15 @@
 import Foundation
 
 protocol DetailsViewModelProtocol {
-    var image: String { get }
-    var blurHash: String { get }
-    var height: Int { get }
-    var width: Int { get }
-    var userName: String { get }
-    var userImage: String { get }
-    var createDate: String { get }
-    var numberOfDownload: String { get }
-    var location: String { get }
+    var image: String? { get }
+    var blurHash: String? { get }
+    var height: Int? { get }
+    var width: Int? { get }
+    var userName: String? { get }
+    var userImage: String? { get }
+    var createDate: String? { get }
+    var numberOfDownload: String? { get }
+    var location: String? { get }
     var isFavorite: Bool { get }
     var viewModelDidChange: ((DetailsViewModelProtocol) -> Void)? { get set }
     func getCountData() -> Int
@@ -28,33 +28,33 @@ protocol DetailsViewModelProtocol {
 }
 
 class DetailViewModel: DetailsViewModelProtocol {
-    var userName: String {
-        photo.user.name
+    var userName: String? {
+        photo.user?.name
     }
-    var userImage: String {
-        photo.user.profileImage["medium"]!
+    var userImage: String? {
+        photo.user?.profileImage["medium"]
     }
-    var createDate: String {
-        let date = FormatService.shared.stringToDate(dateString: photo.createAt)
+    var createDate: String? {
+        let date = FormatService.shared.stringToDate(dateString: photo.createAt ?? "")
         let month = FormatService.shared.monthText(monthNumber: date.month)
         return "Опубликовано в \(month) \(date.day!),\(date.year!)"
     }
-    var numberOfDownload: String {
-        "\(photo.downloads) Скачиваний"
+    var numberOfDownload: String? {
+        "\(photo.downloads ?? 0) Скачиваний"
     }
-    var location: String {
-        photo.location.name ?? ""
+    var location: String? {
+        photo.location?.name
     }
-    var image: String {
-        photo.urls.small
+    var image: String? {
+        photo.urls?.small
     }
-    var width: Int {
-        photo.width / 120
+    var width: Int? {
+        (photo.width ?? 120) / 120
     }
-    var height: Int {
-        photo.height / 120
+    var height: Int? {
+        (photo.height ?? 120) / 120
     }
-    var blurHash: String {
+    var blurHash: String? {
         photo.blurHash
     }
     var isFavorite: Bool {
@@ -78,13 +78,13 @@ class DetailViewModel: DetailsViewModelProtocol {
     private func getPhoto() -> ResultPhoto {
         var photo = ResultPhoto()
         photo.id = self.photo.id
-        photo.user.name = self.photo.user.name
+        photo.user?.name = self.photo.user?.name ?? ""
         photo.urls = self.photo.urls
         return photo
     }
     
     func getUserPhotos(completion: @escaping () -> ()) {
-        NetworkService.shared.fetchDataByUsername(username: photo.user.userName ?? "") { [weak self] result in
+        NetworkService.shared.fetchDataByUsername(username: photo.user?.userName ?? "") { [weak self] result in
             switch result {
             case .success(.resultPhotoArr(let datas)):
                 self?.userPhotos = datas
@@ -98,7 +98,7 @@ class DetailViewModel: DetailsViewModelProtocol {
     }
     
     func getdidSelectItem(at indexPath: IndexPath, completion: @escaping () -> ()) {
-        NetworkService.shared.fetchDataById(id: userPhotos[indexPath.row].id) {[weak self] result in
+        NetworkService.shared.fetchDataById(id: userPhotos[indexPath.row].id ?? "") {[weak self] result in
             switch result {
             case .success(.photo(let data)):
                 self?.photo = data

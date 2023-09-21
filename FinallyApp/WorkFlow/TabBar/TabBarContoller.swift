@@ -11,6 +11,8 @@ class TabBarContoller: UITabBarController {
     override func viewDidLoad() {
         //view.backgroundColor = .systemYellow
         
+        //  Код ниже необ
+        
         let homeViewController = UINavigationController(rootViewController: HomeViewController())
         let FavoriteViewController = UINavigationController(rootViewController: FavoriteViewController())
         
