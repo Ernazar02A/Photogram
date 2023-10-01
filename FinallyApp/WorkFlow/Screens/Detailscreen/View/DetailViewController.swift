@@ -67,6 +67,7 @@ class DetailViewController: UIViewController {
     }
     
     private func showAlert(title: String, message: String) {
+     
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default)
         alert.addAction(action)
@@ -79,14 +80,14 @@ class DetailViewController: UIViewController {
         setupConstraints()
         setStatusForFavoriteButton()
         setupView()
-        setupNavBar()
+        setupNavigationBar()
     }
     
     private func setupView() {
         view.backgroundColor = UIColor.setColor(lightColor: .white, darkColor: .black)
     }
     
-    private func setupNavBar() {
+    private func setupNavigationBar() {
         title = "Detail Screen"
     }
     
@@ -173,6 +174,10 @@ class DetailViewController: UIViewController {
         favoriteBarButtom.tintColor = .red
         downloadBarButtom.tintColor = UIColor.setColor(lightColor: .black, darkColor: .white)
         navigationItem.rightBarButtonItems = [favoriteBarButtom, downloadBarButtom]
+    }
+    
+    deinit {
+        print("deinit")
     }
 }
 
