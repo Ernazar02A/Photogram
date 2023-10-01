@@ -11,7 +11,7 @@ protocol HomeViewModelProtocol {
     func fetchData(completion: @escaping() -> ()) -> Void
     func searchData(query: String, completion: @escaping() -> ()) -> Void
     func search(query: String?, completion: @escaping() -> Void)
-    func getCountData() -> Int
+    var getCountData: Int {get}
     func getViewModelForSelectedRow(at indexPath: IndexPath, completion: @escaping (DetailsViewModelProtocol) -> Void)
     func getDataCell(at indexPath: IndexPath) -> ResultPhoto
     func changeStateIsFavorite(state: Bool, id: String, completion: (Bool) -> ())
@@ -22,7 +22,7 @@ class BaseViewModel: HomeViewModelProtocol {
     var photos: [ResultPhoto]?
     var photo: Photo?
     
-    func getCountData() -> Int {
+    var getCountData: Int {
         photos?.count ?? 0
     }
     

@@ -59,8 +59,8 @@ class BaseViewController: UIViewController {
 //MARK: - ImageCollectionViewCellDelegate
 extension BaseViewController: ImageCollectionViewCellDelegate {
     func favoriteButtonTapped(state: Bool, id: String) {
-        viewModel.changeStateIsFavorite(state: state, id: id) { result in
-            if result { imageCollectionView.reloadData() }
+        viewModel.changeStateIsFavorite(state: state, id: id) { [weak self] result in
+            if result { self?.imageCollectionView.reloadData() }
         }
     }
 }
@@ -68,7 +68,7 @@ extension BaseViewController: ImageCollectionViewCellDelegate {
 //MARK: - UICollectionViewDataSource
 extension BaseViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,numberOfItemsInSection section: Int) -> Int {
-        guard let count = viewModel?.getCountData() else { return 0 }
+        guard let count = viewModel?.getCountData else { return 0 }
         return count
     }
 
