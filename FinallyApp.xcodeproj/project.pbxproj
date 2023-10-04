@@ -8,15 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		1963671C34B7CF424839894A /* Pods_FinallyApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 854F062B2CE9CD1AD9A4E853 /* Pods_FinallyApp.framework */; };
+		52A7DA682ACD6A5200F258CE /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A7DA672ACD6A5200F258CE /* DataService.swift */; };
 		52AEEF142AA73F12007936D8 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AEEF132AA73F12007936D8 /* UserDefaultsService.swift */; };
 		52AEEF2C2AA9B793007936D8 /* FormatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AEEF2B2AA9B792007936D8 /* FormatService.swift */; };
 		52AEEF2E2AA9F411007936D8 /* ResultPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AEEF2D2AA9F411007936D8 /* ResultPhoto.swift */; };
-		52AEEF302AAAEFB2007936D8 /* ImageCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AEEF2F2AAAEFB2007936D8 /* ImageCollectionViewCellViewModel.swift */; };
 		52B4E5FD2AB86E6200D1BC5F /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B4E5FC2AB86E6200D1BC5F /* BaseViewModel.swift */; };
 		52B4E6012AB8887100D1BC5F /* Extension + UICollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B4E6002AB8887100D1BC5F /* Extension + UICollectionViewCell.swift */; };
-		52B4E6032ABA196300D1BC5F /* ViewMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B4E6022ABA196300D1BC5F /* ViewMaker.swift */; };
 		52B4E6092ABA234C00D1BC5F /* extention + UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B4E6082ABA234C00D1BC5F /* extention + UIColor.swift */; };
-		52B4E60C2ABAB66800D1BC5F /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B4E60B2ABAB66800D1BC5F /* PhotoCollectionViewCell.swift */; };
+		52B4E60C2ABAB66800D1BC5F /* AuthorPhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B4E60B2ABAB66800D1BC5F /* AuthorPhotosCollectionViewCell.swift */; };
 		52B4E60F2ABB075600D1BC5F /* BlurHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B4E60E2ABB075600D1BC5F /* BlurHash.swift */; };
 		52F4B2C22A979EC900B3466A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F4B2C12A979EC900B3466A /* AppDelegate.swift */; };
 		52F4B2C42A979EC900B3466A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F4B2C32A979EC900B3466A /* SceneDelegate.swift */; };
@@ -37,15 +36,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		52A7DA672ACD6A5200F258CE /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		52AEEF132AA73F12007936D8 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		52AEEF2B2AA9B792007936D8 /* FormatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatService.swift; sourceTree = "<group>"; };
 		52AEEF2D2AA9F411007936D8 /* ResultPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultPhoto.swift; sourceTree = "<group>"; };
-		52AEEF2F2AAAEFB2007936D8 /* ImageCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 		52B4E5FC2AB86E6200D1BC5F /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		52B4E6002AB8887100D1BC5F /* Extension + UICollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UICollectionViewCell.swift"; sourceTree = "<group>"; };
-		52B4E6022ABA196300D1BC5F /* ViewMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMaker.swift; sourceTree = "<group>"; };
 		52B4E6082ABA234C00D1BC5F /* extention + UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extention + UIColor.swift"; sourceTree = "<group>"; };
-		52B4E60B2ABAB66800D1BC5F /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		52B4E60B2ABAB66800D1BC5F /* AuthorPhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorPhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		52B4E60E2ABB075600D1BC5F /* BlurHash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurHash.swift; sourceTree = "<group>"; };
 		52F4B2BE2A979EC900B3466A /* FinallyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinallyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52F4B2C12A979EC900B3466A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -82,10 +80,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		52AEEF152AA73F1F007936D8 /* DataService */ = {
+		52A7DA662ACD6A2700F258CE /* StorageService */ = {
 			isa = PBXGroup;
 			children = (
 				52AEEF332AAB81A8007936D8 /* UserDefaultsService */,
+			);
+			path = StorageService;
+			sourceTree = "<group>";
+		};
+		52AEEF152AA73F1F007936D8 /* DataService */ = {
+			isa = PBXGroup;
+			children = (
+				52A7DA672ACD6A5200F258CE /* DataService.swift */,
 			);
 			path = DataService;
 			sourceTree = "<group>";
@@ -95,7 +101,6 @@
 			children = (
 				52F4B2DB2A97A02100B3466A /* Constants */,
 				52AEEF2A2AA9B778007936D8 /* FormaterService */,
-				52B4E6042ABA196700D1BC5F /* ViewMaker */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -127,26 +132,9 @@
 		52B4E5FE2AB887A100D1BC5F /* ImageCollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				52B4E5FF2AB887B200D1BC5F /* ViewModel */,
 				52F4B2FD2A9BA95B00B3466A /* ImageCollectionViewCell.swift */,
 			);
 			path = ImageCollectionViewCell;
-			sourceTree = "<group>";
-		};
-		52B4E5FF2AB887B200D1BC5F /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				52AEEF2F2AAAEFB2007936D8 /* ImageCollectionViewCellViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		52B4E6042ABA196700D1BC5F /* ViewMaker */ = {
-			isa = PBXGroup;
-			children = (
-				52B4E6022ABA196300D1BC5F /* ViewMaker.swift */,
-			);
-			path = ViewMaker;
 			sourceTree = "<group>";
 		};
 		52B4E6052ABA230D00D1BC5F /* Extentions */ = {
@@ -178,7 +166,7 @@
 		52B4E60A2ABAB62E00D1BC5F /* PhotoCollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				52B4E60B2ABAB66800D1BC5F /* PhotoCollectionViewCell.swift */,
+				52B4E60B2ABAB66800D1BC5F /* AuthorPhotosCollectionViewCell.swift */,
 			);
 			path = PhotoCollectionViewCell;
 			sourceTree = "<group>";
@@ -244,6 +232,7 @@
 		52F4B2D72A979FCE00B3466A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				52A7DA662ACD6A2700F258CE /* StorageService */,
 				52F4B3002AA1CE7C00B3466A /* DTOs */,
 				52F4B2D82A979FD400B3466A /* NetworkService */,
 				52AEEF152AA73F1F007936D8 /* DataService */,
@@ -541,17 +530,16 @@
 				52F4B2C62A979EC900B3466A /* HomeViewController.swift in Sources */,
 				52B4E60F2ABB075600D1BC5F /* BlurHash.swift in Sources */,
 				52F4B2EC2A9B880C00B3466A /* TabBarContoller.swift in Sources */,
+				52A7DA682ACD6A5200F258CE /* DataService.swift in Sources */,
 				52F4B2C22A979EC900B3466A /* AppDelegate.swift in Sources */,
-				52B4E6032ABA196300D1BC5F /* ViewMaker.swift in Sources */,
 				52F4B2DA2A979FE900B3466A /* NetworkService.swift in Sources */,
 				52B4E6092ABA234C00D1BC5F /* extention + UIColor.swift in Sources */,
 				52F4B2FB2A9BA44100B3466A /* BaseViewController.swift in Sources */,
 				52B4E6012AB8887100D1BC5F /* Extension + UICollectionViewCell.swift in Sources */,
-				52B4E60C2ABAB66800D1BC5F /* PhotoCollectionViewCell.swift in Sources */,
+				52B4E60C2ABAB66800D1BC5F /* AuthorPhotosCollectionViewCell.swift in Sources */,
 				52AEEF2E2AA9F411007936D8 /* ResultPhoto.swift in Sources */,
 				52F4B2FE2A9BA95B00B3466A /* ImageCollectionViewCell.swift in Sources */,
 				52F4B3052AA1E19000B3466A /* HomeViewModel.swift in Sources */,
-				52AEEF302AAAEFB2007936D8 /* ImageCollectionViewCellViewModel.swift in Sources */,
 				52AEEF2C2AA9B793007936D8 /* FormatService.swift in Sources */,
 				52F4B3022AA1CFF800B3466A /* Photo.swift in Sources */,
 				52AEEF142AA73F12007936D8 /* UserDefaultsService.swift in Sources */,

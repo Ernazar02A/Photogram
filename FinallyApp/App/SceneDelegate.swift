@@ -20,6 +20,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = TabBarContoller()
         window?.makeKeyAndVisible()
+        isCheckFavorite()
+    }
+    
+    func isCheckFavorite() {
+        let key = UserDefaultsService.shared.photoKey
+        if UserDefaults.standard.array(forKey: key) == nil {
+            UserDefaults.standard.set([String](), forKey: key)
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
