@@ -32,4 +32,17 @@ enum Constants {
             return URL(string: "\(baseUrl)/users/\(userName)/photos/?client_id=\(Constants.APIKEY.AccessKey)")!
         }
     }
+    
+    enum SizesSpacingImageColletionViewLayout {
+        static let itemSpacing: CGFloat = 10
+        static let lineSpacing: CGFloat = 10
+        enum EdgeInsetsSpacings {
+            static let top = 0
+            static let left: CGFloat = 20
+            static let bottom = 0
+            static let right: CGFloat = 20
+        }
+        static let countItem = 2
+        //static let widthItem = itemSpacing * 2
+    }
 }
