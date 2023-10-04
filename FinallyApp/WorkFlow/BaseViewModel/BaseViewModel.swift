@@ -7,17 +7,17 @@
 
 import Foundation
 
-protocol HomeViewModelProtocol {
-    func fetchData(completion: @escaping() -> ()) -> Void
-    func searchData(query: String, completion: @escaping() -> ()) -> Void
-    func search(query: String?, completion: @escaping() -> Void)
+protocol BaseViewModelProtocol {
+    //func fetchData(completion: @escaping() -> ()) -> Void
+    //func searchData(query: String, completion: @escaping() -> ()) -> Void
+    //func search(query: String?, completion: @escaping() -> Void)
     var getCountData: Int {get}
     func getViewModelForSelectedRow(at indexPath: IndexPath, completion: @escaping (DetailsViewModelProtocol) -> Void)
     func getDataCell(at indexPath: IndexPath) -> ResultPhoto
     func changeStateIsFavorite(state: Bool, id: String, completion: (Bool) -> ())
 }
 
-class BaseViewModel: HomeViewModelProtocol {
+class BaseViewModel: BaseViewModelProtocol {
     
     var photos: [ResultPhoto]?
     var photo: Photo?
@@ -27,7 +27,7 @@ class BaseViewModel: HomeViewModelProtocol {
     }
     
     func getViewModelForSelectedRow(at indexPath: IndexPath, completion: @escaping (DetailsViewModelProtocol) -> Void) {
-        NetworkService.shared.fetchDataById(id: photos?[indexPath.row].id ?? "") { result in
+        DataService.shared.fetchDataById(id: photos?[indexPath.row].id ?? "") { result in
             switch result {
             case .success(.photo(let data)):
                 let viewModel = DetailViewModel(photo: data)
@@ -57,15 +57,15 @@ class BaseViewModel: HomeViewModelProtocol {
         return cellData
     }
     
-    func fetchData(completion: @escaping () -> ()) {
-        //
-    }
+//    func fetchData(completion: @escaping () -> ()) {
+//        //
+//    }
     
-    func searchData(query: String, completion: @escaping() -> Void) {
-        //
-    }
-    
-    func search(query: String?, completion: @escaping() -> Void) {
-        //
-    }
+//    func searchData(query: String, completion: @escaping() -> Void) {
+//        //
+//    }
+//    
+//    func search(query: String?, completion: @escaping() -> Void) {
+//        //
+//    }
 }

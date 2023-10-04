@@ -16,10 +16,10 @@ protocol DetailsViewModelProtocol {
     var userImage: String? { get }
     var createDate: String? { get }
     var numberOfDownload: String? { get }
-    var location: String? { get }
+    var location: String { get }
     var isFavorite: Bool { get }
     var viewModelDidChange: ((DetailsViewModelProtocol) -> Void)? { get set }
-    func getCountData() -> Int
+    var countData: Int { get }
     func getDataCell(at indexPath: IndexPath) -> ResultPhoto
     func getdidSelectItem(at indexPath: IndexPath, completion: @escaping () -> ())
     func favoriteButtonTapped()
@@ -28,11 +28,12 @@ protocol DetailsViewModelProtocol {
 }
 
 class DetailViewModel: DetailsViewModelProtocol {
+    var userImage: String? {
+        photo.user?.profileImage?.medium
+    }
+    
     var userName: String? {
         photo.user?.name
-    }
-    var userImage: String? {
-        photo.user?.profileImage["medium"]
     }
     var createDate: String? {
         let date = FormatService.shared.stringToDate(dateString: photo.createAt ?? "")
@@ -42,8 +43,8 @@ class DetailViewModel: DetailsViewModelProtocol {
     var numberOfDownload: String? {
         "\(photo.downloads ?? 0) Скачиваний"
     }
-    var location: String? {
-        photo.location?.name
+    var location: String {
+        photo.location?.name ?? "Unknown"
     }
     var image: String? {
         photo.urls?.small
@@ -67,6 +68,10 @@ class DetailViewModel: DetailsViewModelProtocol {
             viewModelDidChange?(self)
         }
     }
+    var countData: Int {
+        userPhotos.count
+    }
+
     private var userPhotos: [ResultPhoto] = []
     var viewModelDidChange: ((DetailsViewModelProtocol) -> Void)?
     private var photo: Photo
@@ -78,13 +83,13 @@ class DetailViewModel: DetailsViewModelProtocol {
     private func getPhoto() -> ResultPhoto {
         var photo = ResultPhoto()
         photo.id = self.photo.id
-        photo.user?.name = self.photo.user?.name ?? ""
+        photo.user?.name = self.photo.user?.name ?? "Unknown"
         photo.urls = self.photo.urls
         return photo
     }
     
     func getUserPhotos(completion: @escaping () -> ()) {
-        NetworkService.shared.fetchDataByUsername(username: photo.user?.userName ?? "") { [weak self] result in
+        DataService.shared.fetchDataByUsername(username: photo.user?.userName ?? "") { [weak self] result in
             switch result {
             case .success(.resultPhotoArr(let datas)):
                 self?.userPhotos = datas
@@ -98,7 +103,7 @@ class DetailViewModel: DetailsViewModelProtocol {
     }
     
     func getdidSelectItem(at indexPath: IndexPath, completion: @escaping () -> ()) {
-        NetworkService.shared.fetchDataById(id: userPhotos[indexPath.row].id ?? "") {[weak self] result in
+        DataService.shared.fetchDataById(id: userPhotos[indexPath.row].id ?? "") {[weak self] result in
             switch result {
             case .success(.photo(let data)):
                 self?.photo = data
@@ -109,10 +114,6 @@ class DetailViewModel: DetailsViewModelProtocol {
                 break
             }
         }
-    }
-    
-    func getCountData() -> Int {
-        return userPhotos.count
     }
     
     func getDataCell(at indexPath: IndexPath) -> ResultPhoto {

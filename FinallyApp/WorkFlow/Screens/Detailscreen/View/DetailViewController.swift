@@ -26,16 +26,23 @@ class DetailViewController: UIViewController {
     }()
     private lazy var deviderView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.setColor(lightColor: .black, darkColor: .white)
+        view.backgroundColor = .label
         view.layer.opacity = 0.5
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private lazy var authorNameLabel = ViewMaker.shared.makeLabel(font: .systemFont(ofSize: 16, weight: .medium))
-    private lazy var dateCreateLabel = ViewMaker.shared.makeLabel(font: .italicSystemFont(ofSize: 15), opacity: 0.5)
-    private lazy var locationLabel = ViewMaker.shared.makeLabel(font: .systemFont(ofSize: 14, weight: .light))
-    private lazy var countDownloadLabel = ViewMaker.shared.makeLabel(font: .systemFont(ofSize: 15))
-    private lazy var headerTitleCollectionLabel = ViewMaker.shared.makeLabel(text: "Другие фотки автора",font: .systemFont(ofSize: 20, weight: .medium))
+    private lazy var authorNameLabel = makeLabel(font: .systemFont(ofSize: 16, weight: .medium))
+    private lazy var dateCreateLabel = makeLabel(font: .italicSystemFont(ofSize: 15), opacity: 0.5)
+    private lazy var locationLabel = makeLabel(font: .systemFont(ofSize: 14, weight: .light))
+    private lazy var countDownloadLabel = makeLabel(font: .systemFont(ofSize: 15))
+    private let headerTitleCollectionLabel: UILabel = {
+        let view = UILabel()
+        view.text = "Другие фотки автора"
+        view.font = .systemFont(ofSize: 20, weight: .medium)
+        view.textColor = .label
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     private lazy var imageCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -43,7 +50,7 @@ class DetailViewController: UIViewController {
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.delegate = self
         view.dataSource = self
-        view.register(PhotoCollectionViewCell.self,forCellWithReuseIdentifier: PhotoCollectionViewCell.identifier)
+        view.register(AuthorPhotosCollectionViewCell.self,forCellWithReuseIdentifier: AuthorPhotosCollectionViewCell.identifier)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -75,7 +82,6 @@ class DetailViewController: UIViewController {
     }
     
     private func setup() {
-        
         setupSubview()
         setupConstraints()
         setStatusForFavoriteButton()
@@ -113,7 +119,6 @@ class DetailViewController: UIViewController {
             self?.countDownloadLabel.text = self?.viewModel.numberOfDownload
             self?.dateCreateLabel.text = self?.viewModel.createDate
         }
-        
     }
     
     private func setupSubview() {
@@ -145,7 +150,7 @@ class DetailViewController: UIViewController {
             photoImageView.topAnchor.constraint(equalTo: authorImageView.bottomAnchor,constant: 10),
             photoImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 50),
             photoImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -50),
-            photoImageView.heightAnchor.constraint(equalToConstant: 250),
+            photoImageView.heightAnchor.constraint(equalToConstant: 250 * view.bounds.height / 852),
             
             dateCreateLabel.topAnchor.constraint(equalTo: photoImageView.bottomAnchor,constant: 5),
             dateCreateLabel.leadingAnchor.constraint(equalTo: photoImageView.leadingAnchor,constant: 0),
@@ -172,25 +177,33 @@ class DetailViewController: UIViewController {
         let favoriteBarButtom = UIBarButtonItem(image: UIImage(named: viewModel.isFavorite ? "heartFill" : "heart")!,style: .done,target: self, action: #selector(favoriteButtonTapped))
         let downloadBarButtom = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.down")!,style: .done,target: self,action: #selector(downLoadButtonTapped))
         favoriteBarButtom.tintColor = .red
-        downloadBarButtom.tintColor = UIColor.setColor(lightColor: .black, darkColor: .white)
+        downloadBarButtom.tintColor = .label
         navigationItem.rightBarButtonItems = [favoriteBarButtom, downloadBarButtom]
     }
     
-    deinit {
-        print("deinit")
+    func makeLabel(text: String = "", font: UIFont = .systemFont(ofSize: 16, weight: .regular), numberOfLines: Int = 0, alignment: NSTextAlignment = .left, opacity: Float = 1.0) -> UILabel {
+        let label = UILabel()
+        label.text = text
+        label.font = font
+        label.textColor = .label
+        label.layer.opacity = opacity
+        label.numberOfLines = numberOfLines
+        label.textAlignment = alignment
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }
 }
 
 //MARK: - UICollectionViewDataSource
 extension DetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.getCountData()
+        viewModel.countData
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: PhotoCollectionViewCell.identifier, for: indexPath
-        ) as? PhotoCollectionViewCell else {return UICollectionViewCell()}
+            withReuseIdentifier: AuthorPhotosCollectionViewCell.identifier, for: indexPath
+        ) as? AuthorPhotosCollectionViewCell else {return UICollectionViewCell()}
         cell.configure(model: viewModel.getDataCell(at: indexPath))
         return cell
     }
@@ -209,7 +222,7 @@ extension DetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        CGSize(width: view.bounds.width / 2 - 20, height: 200 / view.bounds.height * 852)
+        CGSize(width: view.bounds.width / 2 - 20, height: 200 * view.bounds.height / 852)
     }
     
     func collectionView(

@@ -7,18 +7,27 @@
 
 import Foundation
 
-class HomeViewModel: BaseViewModel {
+protocol FetchDataProtocol {
+    func fetchData(completion: @escaping() -> Void)
+}
+
+protocol HomeViewModelProtocol {
+    func searchData(query: String, completion: @escaping() -> ()) -> Void
+    func search(query: String?, completion: @escaping() -> Void)
+}
+
+class HomeViewModel: BaseViewModel, HomeViewModelProtocol , FetchDataProtocol {
     
     private var isSearch: Bool = false
     
-    override func fetchData(completion: @escaping() -> Void) {
-        NetworkService.shared.fetchRandomData { [weak self] result in
+    func fetchData(completion: @escaping() -> Void) {
+        DataService.shared.fetchRandomData { [weak self] result in
             self?.setData(result: result, completion: completion)
         }
     }
     
-    override func searchData(query: String, completion: @escaping() -> Void) {
-        NetworkService.shared.searchData(query: query) { [weak self] result in
+    func searchData(query: String, completion: @escaping() -> Void) {
+        DataService.shared.searchData(query: query) { [weak self] result in
             self?.setData(result: result, completion: completion)
         }
     }
@@ -35,7 +44,7 @@ class HomeViewModel: BaseViewModel {
         }
     }
     
-    override func search(query: String?, completion: @escaping() -> Void) {
+    func search(query: String?, completion: @escaping() -> Void) {
         guard let text = query else { return }
         if text.count > 3 {
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in

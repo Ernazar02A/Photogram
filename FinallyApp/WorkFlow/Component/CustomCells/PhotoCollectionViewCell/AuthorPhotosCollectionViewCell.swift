@@ -1,5 +1,5 @@
 //
-//  PhotoCollectionViewCell.swift
+//  AuthorPhotosCollectionViewCell.swift
 //  FinallyApp
 //
 //  Created by Ernazar on 20/9/23.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PhotoCollectionViewCell: UICollectionViewCell {
+class AuthorPhotosCollectionViewCell: UICollectionViewCell {
     private lazy var photoImageView: UIImageView = {
         let view = UIImageView()
         view.layer.cornerRadius = 10

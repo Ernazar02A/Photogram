@@ -14,7 +14,7 @@ class UserDefaultsService {
     }
     static let shared = UserDefaultsService()
     private let userDefaults = UserDefaults.standard
-    private let photoKey = "ArrIdFavorite"
+    let photoKey = "ArrIdFavorite"
     
     func saveFavoritePhoto(for photo: ResultPhoto?, with status: Bool) {
         guard let model = photo else { return }

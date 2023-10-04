@@ -7,8 +7,8 @@
 
 import Foundation
 
-class FavoriteViewModel: BaseViewModel {
-    override func fetchData(completion: @escaping () -> ()) {
+class FavoriteViewModel: BaseViewModel, FetchDataProtocol {
+    func fetchData(completion: @escaping () -> ()) {
         photos = UserDefaultsService.shared.getPhotos()
         completion()
     }
