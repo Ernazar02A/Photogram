@@ -14,18 +14,27 @@ class TabBarContoller: UITabBarController {
     }
     
     private func setupTabBar() {
-        let homeViewController = UINavigationController(rootViewController: HomeViewController())
-        let FavoriteViewController = UINavigationController(rootViewController: FavoriteViewController())
         
-        homeViewController.tabBarItem.image = UIImage(systemName: "house")
-        FavoriteViewController.tabBarItem.image = UIImage(systemName: "heart")
- 
-        homeViewController.title = "home"
-        FavoriteViewController.title = "Favorite"
-        
+        let homeViewController = UINavigationController(rootViewController: createViewController(
+            viewContoller: HomeViewController(viewModel: HomeViewModel()),
+            image: UIImage(systemName: "house"),
+            selectedImage: UIImage(systemName: "house.fill"), title: "Home")
+        )
+        let FavoriteViewController = UINavigationController(rootViewController: createViewController(
+            viewContoller: FavoriteViewController(viewModel: FavoriteViewModel()),
+            image: UIImage(systemName: "heart"),
+            selectedImage: UIImage(systemName: "heart.fill"), title: "Favorite")
+        )
         
         tabBar.tintColor  = .label
         
         setViewControllers([homeViewController, FavoriteViewController], animated: true)
+    }
+    
+    private func createViewController(viewContoller: UIViewController, image: UIImage?, selectedImage: UIImage?, title: String) -> UIViewController {
+        viewContoller.tabBarItem.image = image
+        viewContoller.tabBarItem.selectedImage = selectedImage
+        viewContoller.title = title
+        return viewContoller
     }
 }
