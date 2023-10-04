@@ -20,25 +20,18 @@ struct ResultPhoto: Codable {
     var width: Int?
     var height: Int?
     var blurHash: String?
-    let createAt: String?
-    let likes: Int?
     var isFavorite: Bool?
     
     enum CodingKeys: String, CodingKey {
         case id
         case urls
-        case likes
         case width
         case height
-        case createAt = "created_at"
         case blurHash = "blur_hash"
         case user
     }
     
-    init(){
-        self.likes = 0
-        self.createAt = ""
-    }
+    init() {}
 }
 
 

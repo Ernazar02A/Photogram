@@ -7,11 +7,6 @@
 
 import Foundation
 
-struct Photos: Codable {
-    let total: Int
-    let results: [Photo]
-}
-
 //MARK: - Photo
 struct Photo: Codable {
     var id: String?
@@ -60,10 +55,10 @@ struct Urls: Codable {
 
 //MARK: - User
 struct User: Codable {
-    let id: String
-    var name: String
+    var id: String?
+    var name: String?
     var userName: String?
-    let profileImage: [String : String]
+    var profileImage: ProfileImage?
     enum CodingKeys: String, CodingKey {
         case id
         case name
@@ -71,18 +66,19 @@ struct User: Codable {
         case profileImage = "profile_image"
     }
     
+    init() {}
+}
+
+struct ProfileImage: Codable {
+    let small, medium, large: String
     init() {
-        self.id = ""
-        self.name = ""
-        self.userName = ""
-        self.profileImage = ["":""]
+        self.small = "small"
+        self.medium = "medium"
+        self.large = "large"
     }
 }
 
 // MARK: - Location
 struct Location: Codable {
     var name: String?
-    init() {
-        self.name = ""
-    }
 }
