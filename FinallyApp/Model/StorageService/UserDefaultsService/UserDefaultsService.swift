@@ -15,6 +15,11 @@ class UserDefaultsService {
     static let shared = UserDefaultsService()
     private let userDefaults = UserDefaults.standard
     let photoKey = "ArrIdFavorite"
+    let keyAddition = "1"
+    lazy var keyForOnlySave: (String?) -> String? = {[unowned self] id in
+        guard let id = id else {return nil}
+        return id + self.keyAddition
+    }
     
     func saveFavoritePhoto(for photo: ResultPhoto?, with status: Bool) {
         guard let model = photo else { return }
@@ -22,7 +27,12 @@ class UserDefaultsService {
             changeState(id: model.id, operation: .add)
             do {
                 let data = try JSONEncoder().encode(model)
-                userDefaults.set(data, forKey: (model.id ?? "") + "1")
+                if let key = keyForOnlySave(model.id) {
+                    userDefaults.set(data, forKey: key)
+                } else {
+                    print("nil id")
+                }
+                
             } catch {
                 print(error)
             }
@@ -40,11 +50,15 @@ class UserDefaultsService {
     private func changeState(id: String?, operation: DeleteOrAdd) {
         guard let id = id else {return}
         guard var arr = userDefaults.array(forKey: photoKey)  as? [String] else { return }
-        let index = arr.firstIndex(where: {$0 == id + "1"})
+        let index = arr.firstIndex(where: {$0 == id + keyAddition})
         switch operation {
         case .add:
             if index == nil {
-                arr.append(id + "1")
+                if let key = keyForOnlySave(id) {
+                    arr.append(key)
+                } else {
+                    print("find nil")
+                }
             }
         case .remove:
             if let index = index {
