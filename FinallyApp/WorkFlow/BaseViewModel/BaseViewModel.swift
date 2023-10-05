@@ -8,9 +8,6 @@
 import Foundation
 
 protocol BaseViewModelProtocol {
-    //func fetchData(completion: @escaping() -> ()) -> Void
-    //func searchData(query: String, completion: @escaping() -> ()) -> Void
-    //func search(query: String?, completion: @escaping() -> Void)
     var getCountData: Int {get}
     func getViewModelForSelectedRow(at indexPath: IndexPath, completion: @escaping (DetailsViewModelProtocol) -> Void)
     func getDataCell(at indexPath: IndexPath) -> ResultPhoto
@@ -48,7 +45,6 @@ class BaseViewModel: BaseViewModelProtocol {
         } else {
             completion(false)
         }
-        
     }
     
     func getDataCell(at indexPath: IndexPath) -> ResultPhoto {
@@ -56,16 +52,4 @@ class BaseViewModel: BaseViewModelProtocol {
         cellData.isFavorite = UserDefaultsService.shared.getFavoritePhoto(for: cellData.id)
         return cellData
     }
-    
-//    func fetchData(completion: @escaping () -> ()) {
-//        //
-//    }
-    
-//    func searchData(query: String, completion: @escaping() -> Void) {
-//        //
-//    }
-//    
-//    func search(query: String?, completion: @escaping() -> Void) {
-//        //
-//    }
 }
