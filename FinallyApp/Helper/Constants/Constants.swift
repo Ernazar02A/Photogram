@@ -16,20 +16,20 @@ enum Constants {
     enum APIURL {
         static let baseUrl = "https://api.unsplash.com"
         
-        static func randomUrl(count: Int) -> URL {
-            return URL(string: "\(baseUrl)/photos/random/?count=\(count)&client_id=\(Constants.APIKEY.AccessKey)")!
+        static var randomUrl: (Int) -> String = { count in
+            "\(baseUrl)/photos/random/?count=\(count)&client_id=\(Constants.APIKEY.AccessKey)"
         }
         
-        static func searchUrl(query: String) -> URL {
-            return URL(string: "\(baseUrl)/search/photos/?query=\(query)&client_id=\(Constants.APIKEY.AccessKey)") ?? randomUrl(count: 20)
+        static var searchUrl: (String) -> String = { query in
+            "\(baseUrl)/search/photos/?query=\(query)&client_id=\(Constants.APIKEY.AccessKey)"
         }
         
-        static func getPhotoUrl(id: String) -> URL {
-            return URL(string: "\(baseUrl)/photos/\(id)/?client_id=\(Constants.APIKEY.AccessKey)")!
+        static var getPhotoUrl: (String) -> String = { id in
+            "\(baseUrl)/photos/\(id)/?client_id=\(Constants.APIKEY.AccessKey)"
         }
         
-        static func getUserPhotosUrl(userName: String) -> URL {
-            return URL(string: "\(baseUrl)/users/\(userName)/photos/?client_id=\(Constants.APIKEY.AccessKey)")!
+        static var getUserPhotosUrl: (String) -> String = { userName in
+            "\(baseUrl)/users/\(userName)/photos/?client_id=\(Constants.APIKEY.AccessKey)"
         }
     }
     

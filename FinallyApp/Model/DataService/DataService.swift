@@ -15,7 +15,10 @@ class DataService {
     
     func fetchRandomData(completion: @escaping (Result<TypePhoto,Error>) -> Void) {
 
-        let url = Constants.APIURL.randomUrl(count: 20)
+        guard let url = URL(string:Constants.APIURL.randomUrl(20)) else {
+            print("error url")
+            return
+        }
         
         NetworkService.shared.request(url: url, completion: completion) { data in
             do {
@@ -28,7 +31,10 @@ class DataService {
     }
     
     func searchData(query: String, completion: @escaping (Result<TypePhoto,Error>) -> Void) {
-        let url = Constants.APIURL.searchUrl(query: query)
+        guard let url = URL(string:Constants.APIURL.searchUrl(query)) else {
+            print("error url")
+            return
+        }
         
         NetworkService.shared.request(url: url, completion: completion) { [unowned self] data in
             do {
@@ -42,7 +48,10 @@ class DataService {
     }
     
     func fetchDataById(id: String, completion: @escaping (Result<TypePhoto,Error>) -> Void) {
-        let url = Constants.APIURL.getPhotoUrl(id: id)
+        guard let url = URL(string:Constants.APIURL.getPhotoUrl(id)) else {
+            print("error url")
+            return
+        }
         
         NetworkService.shared.request(url: url, completion: completion) { [unowned self] data in
             do {
@@ -55,8 +64,10 @@ class DataService {
     }
     
     func fetchDataByUsername(username: String, completion: @escaping (Result<TypePhoto,Error>) -> Void) {
-        let url = Constants.APIURL.getUserPhotosUrl(userName: username)
-        
+        guard let url = URL(string:Constants.APIURL.getUserPhotosUrl(username)) else {
+            print("error url")
+            return
+        }
         NetworkService.shared.request(url: url, completion: completion) { [unowned self] data in
             do {
                 let models = try self.decoder.decode([ResultPhoto].self, from: data)
