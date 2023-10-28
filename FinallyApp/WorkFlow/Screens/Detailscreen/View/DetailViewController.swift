@@ -84,7 +84,6 @@ class DetailViewController: UIViewController {
     private func setup() {
         setupSubview()
         setupConstraints()
-        setStatusForFavoriteButton()
         setupView()
         setupNavigationBar()
     }
@@ -98,6 +97,7 @@ class DetailViewController: UIViewController {
     }
     
     private func setupUI() {
+
         viewModel.viewModelDidChange = { [weak self] viewModel in
             self?.setStatusForFavoriteButton()
         }
@@ -107,6 +107,7 @@ class DetailViewController: UIViewController {
             }
         }
         DispatchQueue.main.async { [weak self] in
+            self?.setStatusForFavoriteButton()
             self?.authorNameLabel.text = self?.viewModel.userName
             self?.photoImageView.kf.setImage(with: URL(string: self?.viewModel.image ?? ""))
             self?.photoImageView.kf.setImage(
